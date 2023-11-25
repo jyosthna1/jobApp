@@ -195,47 +195,49 @@ class Jobs extends Component {
 
             <AiOutlineSearch className="search-icon" />
           </div>
-          {this.renderJobProfile()}
-          <hr className="horizontalLine" />
-          <h1 className="typesOfEmployment">Types Of Employment</h1>
-          <ul className="unOrder">
-            {employmentTypesList.map(eachEmploymentType => (
-              <li className="employeeTypeList">
-                <input
-                  type="checkbox"
-                  id={eachEmploymentType.employmentTypeId}
-                  onChange={this.onChangeEmploymentType}
-                  value={eachEmploymentType.label}
-                />
-                <label
-                  htmlFor={eachEmploymentType.employmentTypeId}
-                  className="employmentType"
-                >
-                  {eachEmploymentType.label}
-                </label>
-              </li>
-            ))}
-          </ul>
-          <hr className="horizontalLine" />
-          <ul className="unOrder">
-            {salaryRangesList.map(salaryRange => (
-              <li className="employeeTypeList">
-                <input
-                  type="radio"
-                  id={salaryRange.salaryRangeId}
-                  value={salaryRange.label}
-                  name="salaryRange"
-                  onChange={this.onChangeSalaryRange}
-                />
-                <label
-                  htmlFor={salaryRange.salaryRangeId}
-                  className="employmentType"
-                >
-                  {salaryRange.label}
-                </label>
-              </li>
-            ))}
-          </ul>
+          <div>
+            {this.renderJobProfile()}
+            <hr className="horizontalLine" />
+            <h1 className="typesOfEmployment">Types Of Employment</h1>
+            <ul className="unOrder">
+              {employmentTypesList.map(eachEmploymentType => (
+                <li className="employeeTypeList">
+                  <input
+                    type="checkbox"
+                    id={eachEmploymentType.employmentTypeId}
+                    onChange={this.onChangeEmploymentType}
+                    value={eachEmploymentType.label}
+                  />
+                  <label
+                    htmlFor={eachEmploymentType.employmentTypeId}
+                    className="employmentType"
+                  >
+                    {eachEmploymentType.label}
+                  </label>
+                </li>
+              ))}
+            </ul>
+            <hr className="horizontalLine" />
+            <ul className="unOrder">
+              {salaryRangesList.map(salaryRange => (
+                <li className="employeeTypeList">
+                  <input
+                    type="radio"
+                    id={salaryRange.salaryRangeId}
+                    value={salaryRange.label}
+                    name="salaryRange"
+                    onChange={this.onChangeSalaryRange}
+                  />
+                  <label
+                    htmlFor={salaryRange.salaryRangeId}
+                    className="employmentType"
+                  >
+                    {salaryRange.label}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     )
