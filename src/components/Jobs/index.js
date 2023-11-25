@@ -5,6 +5,7 @@ import Loader from 'react-loader-spinner'
 
 import {AiOutlineSearch} from 'react-icons/ai'
 import Header from '../Header'
+import JobCard from '../JobCard'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -184,16 +185,22 @@ class Jobs extends Component {
       <div className="jobsContainer">
         <Header />
         <div className="jobData">
-          <div className="searchContainer">
-            <input
-              type="search"
-              placeholder="Search"
-              value={jobSearch}
-              className="searchBox"
-              onChange={this.onChangeSearch}
-            />
-
-            <AiOutlineSearch className="search-icon" />
+          <div>
+            <div className="searchContainer">
+              <input
+                type="search"
+                placeholder="Search"
+                value={jobSearch}
+                className="searchBox"
+                onChange={this.onChangeSearch}
+              />
+              <AiOutlineSearch className="search-icon" />
+            </div>
+            <ul className="jobDetailsUnOrderList">
+              {jobData.map(eachJobData => (
+                <JobCard key={eachJobData.id} details={eachJobData} />
+              ))}
+            </ul>
           </div>
           <div className="profileAndOptionsContainer">
             {this.renderJobProfile()}
@@ -238,6 +245,11 @@ class Jobs extends Component {
               ))}
             </ul>
           </div>
+          <ul className="jobDetailsUnOrderListSmall">
+            {jobData.map(eachJobData => (
+              <JobCard key={eachJobData.id} details={eachJobData} />
+            ))}
+          </ul>
         </div>
       </div>
     )
