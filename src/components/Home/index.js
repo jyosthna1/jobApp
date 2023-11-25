@@ -1,4 +1,5 @@
 import './index.css'
+import {Link} from 'react-router-dom'
 import Header from '../Header'
 
 const Home = () => (
@@ -10,9 +11,11 @@ const Home = () => (
         Millions of people are searching for jobs,salary information,company
         reviews.Find the job that fits your ability and potential.
       </p>
-      <button type="button" className="findJobsButton">
-        Find Jobs
-      </button>
+      <Link to="/jobs">
+        <button type="button" className="findJobsButton">
+          Find Jobs
+        </button>
+      </Link>
     </div>
   </div>
 )
