@@ -46,3 +46,13 @@
     font-weight: 400;
   }
 }
+.findJobsButton {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #ffffff;
+  background-color: #4f46e5;
+  border-width: 0px;
+  padding: 10px;
+  width: 120px;
+  border-radius: 7px;
+}
