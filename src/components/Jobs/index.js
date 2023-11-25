@@ -195,7 +195,7 @@ class Jobs extends Component {
 
             <AiOutlineSearch className="search-icon" />
           </div>
-          <div>
+          <div className="profileAndOptionsContainer">
             {this.renderJobProfile()}
             <hr className="horizontalLine" />
             <h1 className="typesOfEmployment">Types Of Employment</h1>

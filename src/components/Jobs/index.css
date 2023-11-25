@@ -8,8 +8,8 @@
 .jobData {
   width: 100%;
   padding-top: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
   display: flex;
   flex-direction: column;
 }
@@ -25,6 +25,11 @@
   align-items: center;
   border: 1px solid #475569;
   border-radius: 6px;
+}
+@media screen and (min-width: 767px) {
+  .profileAndOptionsContainer {
+    margin-right: 30px;
+  }
 }
 
 .searchBox {
