@@ -57,7 +57,7 @@ class Jobs extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     jobSearch: '',
-    employeeTypeSelected: '',
+    employeeTypeSelected: [],
     salaryRangeSelected: '',
     jobData: [],
   }
@@ -69,7 +69,8 @@ class Jobs extends Component {
   getJobsData = async () => {
     this.setState({apiStatus: apiStatusConstants.progress})
     const {employeeTypeSelected, salaryRangeSelected, jobSearch} = this.state
-    const url = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeSelected}&minimum_package=${salaryRangeSelected}&search=${jobSearch}`
+    const employeeTypeSelectedAll = employeeTypeSelected.join()
+    const url = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeSelectedAll}&minimum_package=${salaryRangeSelected}&search=${jobSearch}`
     const token = Cookies.get('jwt_token')
     const options = {
       headers: {
@@ -95,7 +96,15 @@ class Jobs extends Component {
   }
 
   onChangeEmploymentType = event => {
-    this.setState({employeeTypeSelected: event.target.value}, this.getJobsData)
+    this.setState(
+      prevState => ({
+        employeeTypeSelected: [
+          ...prevState.employeeTypeSelected,
+          event.target.value,
+        ],
+      }),
+      this.getJobsData,
+    )
   }
 
   onChangeSalaryRange = event => {
@@ -146,7 +155,7 @@ class Jobs extends Component {
                     type="checkbox"
                     id={eachEmploymentType.employmentTypeId}
                     onChange={this.onChangeEmploymentType}
-                    value={employeeTypeSelected}
+                    value={eachEmploymentType.employmentTypeId}
                   />
                   <label
                     htmlFor={eachEmploymentType.employmentTypeId}
@@ -165,7 +174,7 @@ class Jobs extends Component {
                   <input
                     type="radio"
                     id={salaryRange.salaryRangeId}
-                    value={salaryRangeSelected}
+                    value={salaryRange.salaryRangeId}
                     name="salaryRange"
                     onChange={this.onChangeSalaryRange}
                   />
