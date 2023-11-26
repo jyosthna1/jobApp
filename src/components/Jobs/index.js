@@ -57,8 +57,8 @@ class Jobs extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     jobSearch: '',
-    employeeTypeSelected: employmentTypesList[0].employmentTypeId,
-    salaryRangeSelected: salaryRangesList[0].salaryRangeId,
+    employeeTypeSelected: '',
+    salaryRangeSelected: '',
     jobData: [],
   }
 
@@ -67,7 +67,9 @@ class Jobs extends Component {
   }
 
   getJobsData = async () => {
-    const url = 'https://apis.ccbp.in/jobs'
+    this.setState({apiStatus: apiStatusConstants.progress})
+    const {employeeTypeSelected, salaryRangeSelected, jobSearch} = this.state
+    const url = `https://apis.ccbp.in/jobs?employment_type=${employeeTypeSelected}&minimum_package=${salaryRangeSelected}&search=${jobSearch}`
     const token = Cookies.get('jwt_token')
     const options = {
       headers: {
@@ -93,11 +95,15 @@ class Jobs extends Component {
   }
 
   onChangeEmploymentType = event => {
-    this.setState({employeeTypeSelected: event.target.value})
+    this.setState({employeeTypeSelected: event.target.value}, this.getJobsData)
   }
 
   onChangeSalaryRange = event => {
-    this.setState({salaryRangeSelected: event.target.value})
+    this.setState({salaryRangeSelected: event.target.value}, this.getJobsData)
+  }
+
+  onChangeSearch = event => {
+    this.setState({jobSearch: event.target.value})
   }
 
   render() {
@@ -140,7 +146,7 @@ class Jobs extends Component {
                     type="checkbox"
                     id={eachEmploymentType.employmentTypeId}
                     onChange={this.onChangeEmploymentType}
-                    value={eachEmploymentType.label}
+                    value={employeeTypeSelected}
                   />
                   <label
                     htmlFor={eachEmploymentType.employmentTypeId}
@@ -152,13 +158,14 @@ class Jobs extends Component {
               ))}
             </ul>
             <hr className="horizontalLine" />
+            <h1 className="typesOfEmployment">Salary Range</h1>
             <ul className="unOrder">
               {salaryRangesList.map(salaryRange => (
                 <li className="employeeTypeList">
                   <input
                     type="radio"
                     id={salaryRange.salaryRangeId}
-                    value={salaryRange.label}
+                    value={salaryRangeSelected}
                     name="salaryRange"
                     onChange={this.onChangeSalaryRange}
                   />

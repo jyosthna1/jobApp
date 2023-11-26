@@ -60,6 +60,7 @@
   font-family: 'Roboto';
   font-size: 10px;
   color: #ffffff;
+  padding: 0px;
 }
 .employeeTypeList {
   list-style-type: none;
