@@ -6,6 +6,7 @@ import Loader from 'react-loader-spinner'
 import {AiOutlineSearch} from 'react-icons/ai'
 import Header from '../Header'
 import JobCard from '../JobCard'
+import Profile from '../Profile'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -55,7 +56,6 @@ const salaryRangesList = [
 class Jobs extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
-    profileData: [],
     jobSearch: '',
     employeeTypeSelected: employmentTypesList[0].employmentTypeId,
     salaryRangeSelected: salaryRangesList[0].salaryRangeId,
@@ -63,40 +63,7 @@ class Jobs extends Component {
   }
 
   componentDidMount() {
-    this.getProfileData()
     this.getJobsData()
-  }
-
-  getFormattedData = data => ({
-    name: data.name,
-    profileImageUrl: data.profile_image_url,
-    shortBio: data.short_bio,
-  })
-
-  getProfileData = async () => {
-    this.setState({apiStatus: apiStatusConstants.progress})
-
-    const token = Cookies.get('jwt_token')
-    const url = 'https://apis.ccbp.in/profile'
-    const options = {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-      method: 'GET',
-    }
-
-    const response = await fetch(url, options)
-    if (response.ok) {
-      const data = await response.json()
-      const profileDetails = this.getFormattedData(data.profile_details)
-      this.setState({
-        profileData: profileDetails,
-        apiStatus: apiStatusConstants.success,
-      })
-    }
-    if (response.status === 404) {
-      this.setState({apiStatus: apiStatusConstants.failure})
-    }
   }
 
   getJobsData = async () => {
@@ -125,45 +92,6 @@ class Jobs extends Component {
     }
   }
 
-  renderLoadingView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader
-        type="ThreeDots"
-        color="#ffffff"
-        height="50"
-        width="50"
-        className="loader"
-      />
-    </div>
-  )
-
-  renderProfile = () => {
-    const {profileData} = this.state
-    return (
-      <div className="profileContainer">
-        <img
-          src={profileData.profileImageUrl}
-          alt="profile"
-          className="profile"
-        />
-        <h1 className="profileName">{profileData.name}</h1>
-        <p className="shortBio">{profileData.shortBio}</p>
-      </div>
-    )
-  }
-
-  renderJobProfile = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstants.progress:
-        return this.renderLoadingView()
-      case apiStatusConstants.success:
-        return this.renderProfile()
-      default:
-        return null
-    }
-  }
-
   onChangeEmploymentType = event => {
     this.setState({employeeTypeSelected: event.target.value})
   }
@@ -174,7 +102,6 @@ class Jobs extends Component {
 
   render() {
     const {
-      profileData,
       apiStatus,
       jobSearch,
       employeeTypeSelected,
@@ -203,7 +130,7 @@ class Jobs extends Component {
             </ul>
           </div>
           <div className="profileAndOptionsContainer">
-            {this.renderJobProfile()}
+            <Profile />
             <hr className="horizontalLine" />
             <h1 className="typesOfEmployment">Types Of Employment</h1>
             <ul className="unOrder">
