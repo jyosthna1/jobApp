@@ -15,7 +15,12 @@ const apiStatusConstants = {
 }
 
 class JobItemDetails extends Component {
-  state = {apiStatus: apiStatusConstants.initial, jobDetails: [], keySkills: []}
+  state = {
+    apiStatus: apiStatusConstants.initial,
+    jobDetails: [],
+    keySkills: [],
+    similarJobsData: [],
+  }
 
   componentDidMount() {
     this.getProductDetailsInfo()
@@ -53,12 +58,22 @@ class JobItemDetails extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
+      console.log(data)
       const jobDetails = this.getFormattedJobDetails(data.job_details)
       const keySkills = data.job_details.skills.map(eachSkill => ({
         name: eachSkill.name,
         imageUrl: eachSkill.image_url,
       }))
-      this.setState({jobDetails, keySkills})
+      const SimilarJobs = data.similar_jobs.map(eachItem => ({
+        companyLogoUrl: eachItem.company_logo_url,
+        employmentType: eachItem.employment_type,
+        id: eachItem.id,
+        jobDescription: eachItem.job_description,
+        rating: eachItem.rating,
+        location: eachItem.location,
+        title: eachItem.title,
+      }))
+      this.setState({jobDetails, keySkills, similarJobsData: SimilarJobs})
     }
   }
 
@@ -100,6 +115,7 @@ class JobItemDetails extends Component {
             </div>
           </div>
           <p className="job-description">{jobDetails.jobDescription}</p>
+          <p className="type-of-engineer">Skills</p>
         </div>
       </div>
     )

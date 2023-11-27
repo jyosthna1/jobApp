@@ -30,6 +30,12 @@
   font-size: 13px;
   color: #ffffff;
   margin: 0px;
+  font-weight: 600;
+}
+@media screen and (min-width: 768px) {
+  .type-of-engineer {
+    font-size: 18px;
+  }
 }
 .rating-container {
   display: flex;
@@ -94,4 +100,13 @@
   font-family: 'Roboto';
   font-size: 13px;
   color: #ffffff;
+  line-height: 20px;
+  font-weight: 300;
+}
+@media screen and (min-width: 768px) {
+  .job-description {
+    font-size: 17px;
+    line-height: 30px;
+    font-weight: 400;
+  }
 }
