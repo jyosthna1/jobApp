@@ -1,7 +1,11 @@
 .similar-job-container {
   background-color: #272727;
-  width: 300px;
+  padding: 13px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border-radius: 10px;
 }
+
 .company-logo-role {
   display: flex;
   align-items: flex-start;
@@ -25,7 +29,7 @@
 }
 @media screen and (min-width: 768px) {
   .type-of-engineer {
-    font-size: 26px;
+    font-size: 20px;
   }
 }
 .rating-container {
@@ -40,4 +44,17 @@
   font-family: 'Roboto';
   font-size: 11px;
   color: #ffffff;
+}
+.description-similar {
+  font-family: 'Roboto';
+  font-size: 15px;
+  color: #ffffff;
+  font-weight: 400;
+}
+.similar-job-description {
+  font-family: 'Roboto';
+  font-size: 11px;
+  color: #ffffff;
+  line-height: 20px;
+  font-weight: 300;
 }

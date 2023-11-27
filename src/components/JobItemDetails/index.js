@@ -1,5 +1,6 @@
 import './index.css'
 import Cookies from 'js-cookie'
+import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import {AiFillStar} from 'react-icons/ai'
 import {MdLocationOn} from 'react-icons/md'
@@ -75,6 +76,22 @@ class JobItemDetails extends Component {
         title: eachItem.title,
       }))
       this.setState({jobDetails, keySkills, similarJobsData: SimilarJobs})
+    } else {
+      this.setState({apiStatus: apiStatusConstants.failure})
+    }
+  }
+
+  renderJobItemDetails = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.progress:
+        return this.renderLoadingView()
+      case apiStatusConstants.success:
+        return this.renderProfile()
+      case apiStatusConstants.failure:
+        return this.renderFailureProfileView()
+      default:
+        return null
     }
   }
 
@@ -110,10 +127,12 @@ class JobItemDetails extends Component {
           <hr className="horizontal-line-list" />
           <div className="description-and-visit">
             <p className="type-of-engineer">Description</p>
-            <div className="website-link-container">
-              <p className="visit">Visit</p>
-              <FiExternalLink className="link-icon" />
-            </div>
+            <Link to={`/${jobDetails.companyWebsiteUrl}`}>
+              <div className="website-link-container">
+                <p className="visit">Visit</p>
+                <FiExternalLink className="link-icon" />
+              </div>
+            </Link>
           </div>
           <p className="job-description">{jobDetails.jobDescription}</p>
           <p className="type-of-engineer">Skills</p>
@@ -140,16 +159,13 @@ class JobItemDetails extends Component {
               className="life-at-company-image"
             />
           </div>
-          <p className="type-of-engineer">Similar Jobs</p>
-          <ul className="similar-jobs-list-container">
-            {similarJobsData.map(eachSimilarItem => (
-              <SimilarJobCard
-                details={eachSimilarItem}
-                id={eachSimilarItem.id}
-              />
-            ))}
-          </ul>
         </div>
+        <p className="similarHead">Similar Jobs</p>
+        <ul className="similar-jobs-list-container">
+          {similarJobsData.map(eachSimilarItem => (
+            <SimilarJobCard details={eachSimilarItem} id={eachSimilarItem.id} />
+          ))}
+        </ul>
       </div>
     )
   }
