@@ -6,6 +6,7 @@ import {MdLocationOn} from 'react-icons/md'
 import {FaEnvelope} from 'react-icons/fa'
 import {FiExternalLink} from 'react-icons/fi'
 import Header from '../Header'
+import SimilarJobCard from '../SimilarJobCard'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -78,7 +79,7 @@ class JobItemDetails extends Component {
   }
 
   render() {
-    const {keySkills, jobDetails} = this.state
+    const {keySkills, jobDetails, similarJobsData} = this.state
     return (
       <div className="job-card-details-container">
         <Header />
@@ -116,6 +117,38 @@ class JobItemDetails extends Component {
           </div>
           <p className="job-description">{jobDetails.jobDescription}</p>
           <p className="type-of-engineer">Skills</p>
+          <ul className="skills-container">
+            {keySkills.map(eachKeySkill => (
+              <li className="skill-list">
+                <img
+                  src={eachKeySkill.imageUrl}
+                  alt={eachKeySkill.name}
+                  className="skill-image"
+                />
+                <p className="skill-name">{eachKeySkill.name}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="type-of-engineer">Life At Company</p>
+          <div className="description-image">
+            <p className="job-description">
+              {jobDetails.lifeAtCompanyDescription}
+            </p>
+            <img
+              src={jobDetails.imageUrlLogo}
+              alt="life at company"
+              className="life-at-company-image"
+            />
+          </div>
+          <p className="type-of-engineer">Similar Jobs</p>
+          <ul className="similar-jobs-list-container">
+            {similarJobsData.map(eachSimilarItem => (
+              <SimilarJobCard
+                details={eachSimilarItem}
+                id={eachSimilarItem.id}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     )
