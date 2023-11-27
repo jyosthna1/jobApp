@@ -241,7 +241,7 @@ class Jobs extends Component {
           <div className="profileAndOptionsContainer">
             <Profile />
             <hr className="horizontalLine" />
-            <h1 className="typesOfEmployment">Types Of Employment</h1>
+            <h1 className="typesOfEmployment">Type Of Employment</h1>
             <ul className="unOrder">
               {employmentTypesList.map(eachEmploymentType => (
                 <li className="employeeTypeList">

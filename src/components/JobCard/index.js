@@ -24,7 +24,7 @@ const JobCard = props => {
           <img
             src={companyLogoUrl}
             className="companyLogoUrl"
-            alt="job details company logo"
+            alt="company logo"
           />
           <div className="typeAndRatingContainer">
             <h1 className="typeOfEngineer">{title}</h1>
@@ -44,7 +44,7 @@ const JobCard = props => {
           <p className="package">{packagePerAnnum}</p>
         </div>
         <hr className="horizontalLineList" />
-        <p className="descriptionText">Description</p>
+        <h1 className="descriptionText">Description</h1>
         <p className="descriptionPara">{jobDescription}</p>
       </Link>
     </li>
