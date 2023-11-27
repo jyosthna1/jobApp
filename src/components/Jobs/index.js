@@ -91,7 +91,12 @@ class Jobs extends Component {
         rating: eachData.rating,
         title: eachData.title,
       }))
-      this.setState({jobData: formattedData})
+      this.setState({
+        jobData: formattedData,
+        apiStatus: apiStatusConstants.success,
+      })
+    } else {
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
 
@@ -113,6 +118,59 @@ class Jobs extends Component {
 
   onChangeSearch = event => {
     this.setState({jobSearch: event.target.value})
+  }
+
+  renderLoadingViewJob = () => (
+    <div className="loader-container" data-testid="loader">
+      <Loader
+        type="ThreeDots"
+        color="#ffffff"
+        height="50"
+        width="50"
+        className="loader"
+      />
+    </div>
+  )
+
+  renderJob = () => {
+    const {jobData} = this.state
+    return (
+      <>
+        {jobData.length === 0 ? (
+          <div className="no-jobs-found-container">
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
+              alt="no jobs"
+              className="no-jobs"
+            />
+            <h1 className="no-jobs-head">No Jobs Found</h1>
+            <p className="no-jobs-para">
+              We could not find any jobs. Try other filters
+            </p>
+          </div>
+        ) : (
+          <ul className="jobDetailsUnOrderList">
+            {jobData.map(eachJobData => (
+              <JobCard key={eachJobData.id} details={eachJobData} />
+            ))}
+          </ul>
+        )}
+      </>
+    )
+  }
+
+  renderJobPage = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.progress:
+        return this.renderLoadingViewJob()
+      case apiStatusConstants.success:
+        return this.renderJob()
+      case apiStatusConstants.failure:
+        return this.renderFailureJobView()
+      default:
+        return null
+    }
   }
 
   render() {
@@ -138,11 +196,7 @@ class Jobs extends Component {
               />
               <AiOutlineSearch className="search-icon" />
             </div>
-            <ul className="jobDetailsUnOrderList">
-              {jobData.map(eachJobData => (
-                <JobCard key={eachJobData.id} details={eachJobData} />
-              ))}
-            </ul>
+            {this.renderJobPage()}
           </div>
           <div className="profileAndOptionsContainer">
             <Profile />
