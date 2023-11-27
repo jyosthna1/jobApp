@@ -78,7 +78,7 @@ class Jobs extends Component {
       },
       method: 'GET',
     }
-    const response = await fetch(url, options)
+    const response = fetch(url, options)
     if (response.ok) {
       const data = await response.json()
       const formattedData = data.jobs.map(eachData => ({
@@ -117,7 +117,7 @@ class Jobs extends Component {
   }
 
   onChangeSearch = event => {
-    this.setState({jobSearch: event.target.value})
+    this.setState({jobSearch: event.target.value}, this.getJobsData)
   }
 
   renderLoadingViewJob = () => (
@@ -149,15 +149,55 @@ class Jobs extends Component {
             </p>
           </div>
         ) : (
-          <ul className="jobDetailsUnOrderList">
-            {jobData.map(eachJobData => (
-              <JobCard key={eachJobData.id} details={eachJobData} />
-            ))}
-          </ul>
+          <>
+            <ul className="jobDetailsUnOrderList">
+              {jobData.map(eachJobData => (
+                <JobCard key={eachJobData.id} details={eachJobData} />
+              ))}
+            </ul>
+            <ul className="jobDetailsUnOrderListSmall">
+              {jobData.map(eachJobData => (
+                <JobCard key={eachJobData.id} details={eachJobData} />
+              ))}
+            </ul>
+          </>
         )}
       </>
     )
   }
+
+  renderFailureJobView = () => (
+    <>
+      <div className="failure-container">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+          alt="failure view"
+          className="failure-view"
+        />
+        <h1 className="failure-head">Oops! Something Went Wrong</h1>
+        <p className="failure-para">
+          We cannot seem to find the page you are looking for.
+        </p>
+        <button type="button" className="failure-button">
+          Retry
+        </button>
+      </div>
+      <div className="failure-container-small">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+          alt="failure view"
+          className="failure-view"
+        />
+        <h1 className="failure-head">Oops! Something Went Wrong</h1>
+        <p className="failure-para">
+          We cannot seem to find the page you are looking for.
+        </p>
+        <button type="button" className="failure-button">
+          Retry
+        </button>
+      </div>
+    </>
+  )
 
   renderJobPage = () => {
     const {apiStatus} = this.state
@@ -196,7 +236,7 @@ class Jobs extends Component {
               />
               <AiOutlineSearch className="search-icon" />
             </div>
-            {this.renderJobPage()}
+            <div className="large-devices">{this.renderJobPage()}</div>
           </div>
           <div className="profileAndOptionsContainer">
             <Profile />
@@ -242,11 +282,7 @@ class Jobs extends Component {
               ))}
             </ul>
           </div>
-          <ul className="jobDetailsUnOrderListSmall">
-            {jobData.map(eachJobData => (
-              <JobCard key={eachJobData.id} details={eachJobData} />
-            ))}
-          </ul>
+          <div className="small-devices">{this.renderJobPage()}</div>
         </div>
       </div>
     )
