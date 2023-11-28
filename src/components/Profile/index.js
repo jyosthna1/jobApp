@@ -64,15 +64,12 @@ class Profile extends Component {
 
   renderProfile = () => {
     const {profileData} = this.state
+    const {profileImageUrl, name, shortBio} = profileData
     return (
       <div className="profileContainer">
-        <img
-          src={profileData.profileImageUrl}
-          alt="profile"
-          className="profile"
-        />
-        <h1 className="profileName">{profileData.name}</h1>
-        <p className="shortBio">{profileData.shortBio}</p>
+        <img src={profileImageUrl} alt="profile" className="profile" />
+        <h1 className="profileName">{name}</h1>
+        <p className="shortBio">{shortBio}</p>
       </div>
     )
   }
