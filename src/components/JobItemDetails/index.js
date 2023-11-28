@@ -1,5 +1,6 @@
 import './index.css'
 import Cookies from 'js-cookie'
+import Loader from 'react-loader-spinner'
 import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import {AiFillStar} from 'react-icons/ai'
@@ -60,7 +61,6 @@ class JobItemDetails extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      console.log(data)
       const jobDetails = this.getFormattedJobDetails(data.job_details)
       const keySkills = data.job_details.skills.map(eachSkill => ({
         name: eachSkill.name,
@@ -75,31 +75,33 @@ class JobItemDetails extends Component {
         location: eachItem.location,
         title: eachItem.title,
       }))
-      this.setState({jobDetails, keySkills, similarJobsData: SimilarJobs})
+      this.setState({
+        jobDetails,
+        keySkills,
+        similarJobsData: SimilarJobs,
+        apiStatus: apiStatusConstants.success,
+      })
     } else {
       this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
 
-  renderJobItemDetails = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstants.progress:
-        return this.renderLoadingView()
-      case apiStatusConstants.success:
-        return this.renderProfile()
-      case apiStatusConstants.failure:
-        return this.renderFailureProfileView()
-      default:
-        return null
-    }
-  }
+  renderLoadingView = () => (
+    <div className="loader-container" data-testid="loader">
+      <Loader
+        type="ThreeDots"
+        color="#ffffff"
+        height="50"
+        width="50"
+        className="loader"
+      />
+    </div>
+  )
 
-  render() {
+  renderJobDetailsPage = () => {
     const {keySkills, jobDetails, similarJobsData} = this.state
     return (
-      <div className="job-card-details-container">
-        <Header />
+      <>
         <div className="job-details-and-company">
           <div className="company-logo-role">
             <img
@@ -163,9 +165,53 @@ class JobItemDetails extends Component {
         <p className="similarHead">Similar Jobs</p>
         <ul className="similar-jobs-list-container">
           {similarJobsData.map(eachSimilarItem => (
-            <SimilarJobCard details={eachSimilarItem} id={eachSimilarItem.id} />
+            <SimilarJobCard
+              details={eachSimilarItem}
+              key={eachSimilarItem.id}
+            />
           ))}
         </ul>
+      </>
+    )
+  }
+
+  renderFailureProfileView = () => (
+    <div className="failure-container-jobDetails">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view"
+      />
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
+        We cannot seem to find the page you are looking for.
+      </p>
+      <button type="button" className="failure-button">
+        Retry
+      </button>
+    </div>
+  )
+
+  renderJobItemDetails = () => {
+    const {apiStatus} = this.state
+    switch (apiStatus) {
+      case apiStatusConstants.progress:
+        return this.renderLoadingView()
+      case apiStatusConstants.success:
+        return this.renderJobDetailsPage()
+      case apiStatusConstants.failure:
+        return this.renderFailureProfileView()
+      default:
+        return null
+    }
+  }
+
+  render() {
+    const {keySkills, jobDetails, similarJobsData} = this.state
+    return (
+      <div className="job-card-details-container">
+        <Header />
+        {this.renderJobItemDetails()}
       </div>
     )
   }

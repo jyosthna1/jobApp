@@ -78,7 +78,7 @@ class Jobs extends Component {
       },
       method: 'GET',
     }
-    const response = fetch(url, options)
+    const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
       const formattedData = data.jobs.map(eachData => ({

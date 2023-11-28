@@ -21,11 +21,15 @@ const Header = props => {
           className="website-logo"
         />
       </Link>
-      <div className="header-icons-container">
-        <MdHome className="home-icon" />
-        <FaEnvelope className="home-icon" />
-        <FiLogOut className="home-icon" />
-      </div>
+      <ul className="header-icons-container">
+        <Link to="/" className="link-style">
+          <MdHome className="home-icon" />
+        </Link>
+        <Link to="/jobs" className="link-style">
+          <FaEnvelope className="home-icon" />
+        </Link>
+        <FiLogOut className="home-icon" onClick={onClickLogout} />
+      </ul>
       <ul className="home-jobs-container">
         <Link to="/" className="link-style">
           <li className="home-button">Home</li>
