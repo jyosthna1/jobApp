@@ -18,12 +18,17 @@
     justify-content: start;
   }
 }
+.search-button {
+  border-width: 0px;
+  background-color: transparent;
+}
 .searchContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border: 1px solid #475569;
   border-radius: 6px;
+  width: 100%;
 }
 @media screen and (min-width: 768px) {
   .profileAndOptionsContainer {
@@ -39,9 +44,10 @@
   padding: 6px;
   font-family: 'Roboto';
   color: #ffffff;
+  outline: none;
 }
 @media screen and (min-width: 768px) {
-  .searchBox {
+  .searchContainer {
     width: 400px;
   }
 }
@@ -50,6 +56,7 @@
   width: 20px;
   background-color: #475569;
   height: 100%;
+  margin: 0px;
 }
 
 .horizontalLine {

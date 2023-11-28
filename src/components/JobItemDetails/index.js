@@ -128,7 +128,7 @@ class JobItemDetails extends Component {
           </div>
           <hr className="horizontal-line-list" />
           <div className="description-and-visit">
-            <p className="type-of-engineer">Description</p>
+            <h1 className="type-of-engineer">Description</h1>
             <Link to={`/${jobDetails.companyWebsiteUrl}`}>
               <div className="website-link-container">
                 <p className="visit">Visit</p>
@@ -137,7 +137,7 @@ class JobItemDetails extends Component {
             </Link>
           </div>
           <p className="job-description">{jobDetails.jobDescription}</p>
-          <p className="type-of-engineer">Skills</p>
+          <h1 className="type-of-engineer">Skills</h1>
           <ul className="skills-container">
             {keySkills.map(eachKeySkill => (
               <li className="skill-list">
@@ -150,7 +150,7 @@ class JobItemDetails extends Component {
               </li>
             ))}
           </ul>
-          <p className="type-of-engineer">Life At Company</p>
+          <h1 className="type-of-engineer">Life At Company</h1>
           <div className="description-image">
             <p className="job-description">
               {jobDetails.lifeAtCompanyDescription}
@@ -162,7 +162,7 @@ class JobItemDetails extends Component {
             />
           </div>
         </div>
-        <p className="similarHead">Similar Jobs</p>
+        <h1 className="similarHead">Similar Jobs</h1>
         <ul className="similar-jobs-list-container">
           {similarJobsData.map(eachSimilarItem => (
             <SimilarJobCard
@@ -175,22 +175,29 @@ class JobItemDetails extends Component {
     )
   }
 
-  renderFailureProfileView = () => (
-    <div className="failure-container-jobDetails">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="failure view"
-        className="failure-view"
-      />
-      <h1 className="failure-head">Oops! Something Went Wrong</h1>
-      <p className="failure-para">
-        We cannot seem to find the page you are looking for.
-      </p>
-      <button type="button" className="failure-button">
-        Retry
-      </button>
-    </div>
-  )
+  renderFailureProfileView = props => {
+    const {history} = props
+    const {math} = history
+    const {id} = math
+    return (
+      <div className="failure-container-jobDetails">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+          alt="failure view"
+          className="failure-view"
+        />
+        <h1 className="failure-head">Oops! Something Went Wrong</h1>
+        <p className="failure-para">
+          We cannot seem to find the page you are looking for.
+        </p>
+        <Link to={`/jobs/${id}`}>
+          <button type="button" className="failure-button">
+            Retry
+          </button>
+        </Link>
+      </div>
+    )
+  }
 
   renderJobItemDetails = () => {
     const {apiStatus} = this.state

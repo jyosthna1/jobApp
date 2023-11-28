@@ -1,5 +1,6 @@
 import './index.css'
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
@@ -178,9 +179,11 @@ class Jobs extends Component {
         <p className="failure-para">
           We cannot seem to find the page you are looking for.
         </p>
-        <button type="button" className="failure-button">
-          Retry
-        </button>
+        <Link to="/jobs">
+          <button type="button" className="failure-button">
+            Retry
+          </button>
+        </Link>
       </div>
       <div className="failure-container-small">
         <img
@@ -192,9 +195,11 @@ class Jobs extends Component {
         <p className="failure-para">
           We cannot seem to find the page you are looking for.
         </p>
-        <button type="button" className="failure-button">
-          Retry
-        </button>
+        <Link to="/jobs">
+          <button type="button" className="failure-button">
+            Retry
+          </button>
+        </Link>
       </div>
     </>
   )
@@ -234,7 +239,15 @@ class Jobs extends Component {
                 className="searchBox"
                 onChange={this.onChangeSearch}
               />
-              <AiOutlineSearch className="search-icon" />
+              <div>
+                <button
+                  type="button"
+                  className="search-button"
+                  data-testid="search"
+                >
+                  <AiOutlineSearch className="search-icon" />
+                </button>
+              </div>
             </div>
             <div className="large-devices">{this.renderJobPage()}</div>
           </div>
