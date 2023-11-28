@@ -96,21 +96,22 @@
 .description-and-visit {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .visit {
   font-family: 'Roboto';
-  font-size: 12px;
+  font-size: 15px;
   color: #6366f1;
+  text-decoration: none;
+  margin: 0px;
 }
 .website-link-container {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .link-icon {
-  padding-left: 8px;
   color: #6366f1;
-  height: 20px;
-  width: 20px;
 }
 .job-description {
   font-family: 'Roboto';

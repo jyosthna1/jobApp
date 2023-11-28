@@ -240,13 +240,7 @@ class Jobs extends Component {
                 onChange={this.onChangeSearch}
               />
               <div>
-                <button
-                  type="button"
-                  className="search-button"
-                  data-testid="search"
-                >
-                  <AiOutlineSearch className="search-icon" />
-                </button>
+                <AiOutlineSearch className="search-icon" />
               </div>
             </div>
             <div className="large-devices">{this.renderJobPage()}</div>

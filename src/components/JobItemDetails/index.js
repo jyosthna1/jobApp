@@ -129,12 +129,13 @@ class JobItemDetails extends Component {
           <hr className="horizontal-line-list" />
           <div className="description-and-visit">
             <h1 className="type-of-engineer">Description</h1>
-            <Link to={`/${jobDetails.companyWebsiteUrl}`}>
-              <div className="website-link-container">
-                <p className="visit">Visit</p>
-                <FiExternalLink className="link-icon" />
-              </div>
-            </Link>
+
+            <div className="website-link-container">
+              <a href={jobDetails.companyWebsiteUrl} className="visit">
+                Visit
+                <FiExternalLink className="link-icon" size="15px" />
+              </a>
+            </div>
           </div>
           <p className="job-description">{jobDetails.jobDescription}</p>
           <h1 className="type-of-engineer">Skills</h1>
