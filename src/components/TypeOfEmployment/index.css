@@ -1,0 +1,11 @@
+.employeeTypeList {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+.employmentType {
+  font-family: 'Roboto';
+  font-size: 10px;
+  color: #ffffff;
+}

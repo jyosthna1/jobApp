@@ -8,6 +8,8 @@ import {AiOutlineSearch} from 'react-icons/ai'
 import Header from '../Header'
 import JobCard from '../JobCard'
 import Profile from '../Profile'
+import TypeOfEmployment from '../TypeOfEmployment'
+import SalaryCard from '../SalaryCard'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -101,20 +103,17 @@ class Jobs extends Component {
     }
   }
 
-  onChangeEmploymentType = event => {
+  onChangeEmploymentType = value => {
     this.setState(
       prevState => ({
-        employeeTypeSelected: [
-          ...prevState.employeeTypeSelected,
-          event.target.value,
-        ],
+        employeeTypeSelected: [...prevState.employeeTypeSelected, value],
       }),
       this.getJobsData,
     )
   }
 
-  onChangeSalaryRange = event => {
-    this.setState({salaryRangeSelected: event.target.value}, this.getJobsData)
+  onChangeSalaryRange = value => {
+    this.setState({salaryRangeSelected: value}, this.getJobsData)
   }
 
   onChangeSearch = event => {
@@ -251,41 +250,22 @@ class Jobs extends Component {
             <h1 className="typesOfEmployment">Type Of Employment</h1>
             <ul className="unOrder">
               {employmentTypesList.map(eachEmploymentType => (
-                <li className="employeeTypeList">
-                  <input
-                    type="checkbox"
-                    id={eachEmploymentType.employmentTypeId}
-                    onChange={this.onChangeEmploymentType}
-                    value={eachEmploymentType.employmentTypeId}
-                  />
-                  <label
-                    htmlFor={eachEmploymentType.employmentTypeId}
-                    className="employmentType"
-                  >
-                    {eachEmploymentType.label}
-                  </label>
-                </li>
+                <TypeOfEmployment
+                  employmentType={eachEmploymentType}
+                  key={eachEmploymentType.employmentTypeId}
+                  onChangeEmploymentType={this.onChangeEmploymentType}
+                />
               ))}
             </ul>
             <hr className="horizontalLine" />
             <h1 className="typesOfEmployment">Salary Range</h1>
             <ul className="unOrder">
               {salaryRangesList.map(salaryRange => (
-                <li className="employeeTypeList">
-                  <input
-                    type="radio"
-                    id={salaryRange.salaryRangeId}
-                    value={salaryRange.salaryRangeId}
-                    name="salaryRange"
-                    onChange={this.onChangeSalaryRange}
-                  />
-                  <label
-                    htmlFor={salaryRange.salaryRangeId}
-                    className="employmentType"
-                  >
-                    {salaryRange.label}
-                  </label>
-                </li>
+                <SalaryCard
+                  salaryDetails={salaryRange}
+                  key={salaryRange.salaryRangeId}
+                  onChangeSalaryRange={this.onChangeSalaryRange}
+                />
               ))}
             </ul>
           </div>
