@@ -1,6 +1,7 @@
 import './index.css'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import {v4} from 'uuid'
 import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import {AiFillStar} from 'react-icons/ai'
@@ -15,6 +16,18 @@ const apiStatusConstants = {
   progress: 'PROGRESS',
   success: 'SUCCESS',
   failure: 'FAILURE',
+}
+
+const RenderKeySkillCard = props => {
+  const {detailsKeySkill} = props
+  const {imageUrl, name} = detailsKeySkill
+
+  return (
+    <li className="skill-list">
+      <img src={imageUrl} alt={name} className="skill-image" />
+      <p className="skill-name">{name}</p>
+    </li>
+  )
 }
 
 class JobItemDetails extends Component {
@@ -65,6 +78,7 @@ class JobItemDetails extends Component {
       const keySkills = data.job_details.skills.map(eachSkill => ({
         name: eachSkill.name,
         imageUrl: eachSkill.image_url,
+        id: v4(),
       }))
       const SimilarJobs = data.similar_jobs.map(eachItem => ({
         companyLogoUrl: eachItem.company_logo_url,
@@ -141,14 +155,10 @@ class JobItemDetails extends Component {
           <h1 className="type-of-engineer">Skills</h1>
           <ul className="skills-container">
             {keySkills.map(eachKeySkill => (
-              <li className="skill-list">
-                <img
-                  src={eachKeySkill.imageUrl}
-                  alt={eachKeySkill.name}
-                  className="skill-image"
-                />
-                <p className="skill-name">{eachKeySkill.name}</p>
-              </li>
+              <RenderKeySkillCard
+                detailsKeySkill={eachKeySkill}
+                key={eachKeySkill.id}
+              />
             ))}
           </ul>
           <h1 className="type-of-engineer">Life At Company</h1>

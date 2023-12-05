@@ -23,10 +23,14 @@ const Header = props => {
       </Link>
       <ul className="header-icons-container">
         <Link to="/" className="link-style">
-          <MdHome className="home-icon" />
+          <li>
+            <MdHome className="home-icon" />
+          </li>
         </Link>
         <Link to="/jobs" className="link-style">
-          <FaEnvelope className="home-icon" />
+          <li>
+            <FaEnvelope className="home-icon" />
+          </li>
         </Link>
         <FiLogOut className="home-icon" onClick={onClickLogout} />
       </ul>
