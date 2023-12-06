@@ -119,7 +119,7 @@ class Jobs extends Component {
       const updatedData = employeeTypeSelected.filter(
         eachEmployee => eachEmployee !== event.target.value,
       )
-      this.setState({employeeTypeSelected: updatedData})
+      this.setState({employeeTypeSelected: updatedData}, this.getJobsData)
     }
     console.log(employeeTypeSelected)
   }

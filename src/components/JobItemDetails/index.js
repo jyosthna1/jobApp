@@ -18,30 +18,6 @@ const apiStatusConstants = {
   failure: 'FAILURE',
 }
 
-const RenderFailureProfileView = props => {
-  const {history} = props
-  const {math} = history
-  const {id} = math
-  return (
-    <div className="failure-container-jobDetails">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="failure view"
-        className="failure-view"
-      />
-      <h1 className="failure-head">Oops! Something Went Wrong</h1>
-      <p className="failure-para">
-        We cannot seem to find the page you are looking for.
-      </p>
-      <Link to={`/jobs/${id}`}>
-        <button type="button" className="failure-button">
-          Retry
-        </button>
-      </Link>
-    </div>
-  )
-}
-
 const RenderKeySkillCard = props => {
   const {detailsKeySkill} = props
   const {imageUrl, name} = detailsKeySkill
@@ -95,7 +71,7 @@ class JobItemDetails extends Component {
       },
       method: 'GET',
     }
-    const response = await fetch(url, options)
+    const response = fetch(url, options)
     if (response.ok) {
       const data = await response.json()
       const jobDetails = this.getFormattedJobDetails(data.job_details)
@@ -210,15 +186,34 @@ class JobItemDetails extends Component {
     )
   }
 
+  renderFailureJobDetailsView = () => (
+    <div className="failure-container-jobDetails">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view"
+      />
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
+        We cannot seem to find the page you are looking for.
+      </p>
+
+      <button type="button" className="failure-button">
+        Retry
+      </button>
+    </div>
+  )
+
   renderJobItemDetails = () => {
     const {apiStatus} = this.state
+    console.log(apiStatus)
     switch (apiStatus) {
       case apiStatusConstants.progress:
         return this.renderLoadingView()
       case apiStatusConstants.success:
         return this.renderJobDetailsPage()
       case apiStatusConstants.failure:
-        return <RenderFailureProfileView />
+        return this.renderFailureJobDetailsView()
       default:
         return null
     }
