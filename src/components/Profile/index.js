@@ -67,7 +67,7 @@ class Profile extends Component {
     const {profileImageUrl, name, shortBio} = profileData
     return (
       <div className="profileContainer">
-        <img src={profileImageUrl} alt="profile" className="profile" />
+        <img src={profileImageUrl} alt="profile" className="profileImage" />
         <h1 className="profileName">{name}</h1>
         <p className="shortBio">{shortBio}</p>
       </div>

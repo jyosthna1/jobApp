@@ -188,7 +188,7 @@ class Jobs extends Component {
         />
         <h1 className="failure-head">Oops! Something Went Wrong</h1>
         <p className="failure-para">
-          We cannot seem to find the page you are looking for.
+          We cannot seem to find the page you are looking for
         </p>
         <Link to="/jobs">
           <button type="button" className="failure-button">
@@ -230,13 +230,7 @@ class Jobs extends Component {
   }
 
   render() {
-    const {
-      apiStatus,
-      jobSearch,
-      employeeTypeSelected,
-      salaryRangeSelected,
-      jobData,
-    } = this.state
+    const {jobSearch} = this.state
     return (
       <div className="jobsContainer">
         <Header />

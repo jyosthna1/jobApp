@@ -27,7 +27,7 @@ const JobCard = props => {
             alt="company logo"
           />
           <div className="typeAndRatingContainer">
-            <h1 className="typeOfEngineer">{title}</h1>
+            <h className="typeOfEngineer">{title}</h>
             <div className="ratingContainer">
               <AiFillStar className="star" />
               <p className="rating">{rating}</p>
