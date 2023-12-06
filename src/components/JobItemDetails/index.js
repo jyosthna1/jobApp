@@ -18,6 +18,32 @@ const apiStatusConstants = {
   failure: 'FAILURE',
 }
 
+const RenderFailureJobDetailsView = props => {
+  const {callJobDetails} = props
+
+  const onClickPage = () => {
+    callJobDetails()
+  }
+
+  return (
+    <div className="failure-container-jobDetails">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view"
+      />
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
+        We cannot seem to find the page you are looking for.
+      </p>
+
+      <button type="button" className="failure-button" onClick={onClickPage}>
+        Retry
+      </button>
+    </div>
+  )
+}
+
 const RenderKeySkillCard = props => {
   const {detailsKeySkill} = props
   const {imageUrl, name} = detailsKeySkill
@@ -185,23 +211,9 @@ class JobItemDetails extends Component {
     )
   }
 
-  renderFailureJobDetailsView = () => (
-    <div className="failure-container-jobDetails">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-        alt="failure view"
-        className="failure-view"
-      />
-      <h1 className="failure-head">Oops! Something Went Wrong</h1>
-      <p className="failure-para">
-        We cannot seem to find the page you are looking for.
-      </p>
-
-      <button type="button" className="failure-button">
-        Retry
-      </button>
-    </div>
-  )
+  callJobDetails = () => {
+    this.getProductDetailsInfo()
+  }
 
   renderJobItemDetails = () => {
     const {apiStatus} = this.state
@@ -212,7 +224,9 @@ class JobItemDetails extends Component {
       case apiStatusConstants.success:
         return this.renderJobDetailsPage()
       case apiStatusConstants.failure:
-        return this.renderFailureJobDetailsView()
+        return (
+          <RenderFailureJobDetailsView callJobDetails={this.callJobDetails} />
+        )
       default:
         return null
     }
