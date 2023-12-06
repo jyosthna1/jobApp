@@ -5,7 +5,7 @@ const TypeOfEmployment = props => {
   const {employmentTypeId, label} = employmentType
 
   const onChangeEmployment = event => {
-    onChangeEmploymentType(event.target.value)
+    onChangeEmploymentType(event)
   }
 
   return (

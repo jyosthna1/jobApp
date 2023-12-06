@@ -103,13 +103,25 @@ class Jobs extends Component {
     }
   }
 
-  onChangeEmploymentType = value => {
-    this.setState(
-      prevState => ({
-        employeeTypeSelected: [...prevState.employeeTypeSelected, value],
-      }),
-      this.getJobsData,
-    )
+  onChangeEmploymentType = event => {
+    const {employeeTypeSelected} = this.state
+    if (event.target.checked === true) {
+      this.setState(
+        prevState => ({
+          employeeTypeSelected: [
+            ...prevState.employeeTypeSelected,
+            event.target.value,
+          ],
+        }),
+        this.getJobsData,
+      )
+    } else {
+      const updatedData = employeeTypeSelected.filter(
+        eachEmployee => eachEmployee !== event.target.value,
+      )
+      this.setState({employeeTypeSelected: updatedData})
+    }
+    console.log(employeeTypeSelected)
   }
 
   onChangeSalaryRange = value => {

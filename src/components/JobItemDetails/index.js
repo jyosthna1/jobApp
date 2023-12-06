@@ -18,6 +18,30 @@ const apiStatusConstants = {
   failure: 'FAILURE',
 }
 
+const RenderFailureProfileView = props => {
+  const {history} = props
+  const {math} = history
+  const {id} = math
+  return (
+    <div className="failure-container-jobDetails">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+        alt="failure view"
+        className="failure-view"
+      />
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
+        We cannot seem to find the page you are looking for.
+      </p>
+      <Link to={`/jobs/${id}`}>
+        <button type="button" className="failure-button">
+          Retry
+        </button>
+      </Link>
+    </div>
+  )
+}
+
 const RenderKeySkillCard = props => {
   const {detailsKeySkill} = props
   const {imageUrl, name} = detailsKeySkill
@@ -186,30 +210,6 @@ class JobItemDetails extends Component {
     )
   }
 
-  renderFailureProfileView = props => {
-    const {history} = props
-    const {math} = history
-    const {id} = math
-    return (
-      <div className="failure-container-jobDetails">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
-          alt="failure view"
-          className="failure-view"
-        />
-        <h1 className="failure-head">Oops! Something Went Wrong</h1>
-        <p className="failure-para">
-          We cannot seem to find the page you are looking for.
-        </p>
-        <Link to={`/jobs/${id}`}>
-          <button type="button" className="failure-button">
-            Retry
-          </button>
-        </Link>
-      </div>
-    )
-  }
-
   renderJobItemDetails = () => {
     const {apiStatus} = this.state
     switch (apiStatus) {
@@ -218,7 +218,7 @@ class JobItemDetails extends Component {
       case apiStatusConstants.success:
         return this.renderJobDetailsPage()
       case apiStatusConstants.failure:
-        return this.renderFailureProfileView()
+        return <RenderFailureProfileView />
       default:
         return null
     }
