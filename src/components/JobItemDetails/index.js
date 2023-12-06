@@ -1,7 +1,7 @@
 import './index.css'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import {v4} from 'uuid'
+
 import {Link} from 'react-router-dom'
 import {Component} from 'react'
 import {AiFillStar} from 'react-icons/ai'
@@ -71,14 +71,13 @@ class JobItemDetails extends Component {
       },
       method: 'GET',
     }
-    const response = fetch(url, options)
+    const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
       const jobDetails = this.getFormattedJobDetails(data.job_details)
       const keySkills = data.job_details.skills.map(eachSkill => ({
         name: eachSkill.name,
         imageUrl: eachSkill.image_url,
-        id: v4(),
       }))
       const SimilarJobs = data.similar_jobs.map(eachItem => ({
         companyLogoUrl: eachItem.company_logo_url,
@@ -157,7 +156,7 @@ class JobItemDetails extends Component {
             {keySkills.map(eachKeySkill => (
               <RenderKeySkillCard
                 detailsKeySkill={eachKeySkill}
-                key={eachKeySkill.id}
+                key={eachKeySkill.name}
               />
             ))}
           </ul>
@@ -220,7 +219,6 @@ class JobItemDetails extends Component {
   }
 
   render() {
-    const {keySkills, jobDetails, similarJobsData} = this.state
     return (
       <div className="job-card-details-container">
         <Header />
